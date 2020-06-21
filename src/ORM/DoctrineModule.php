@@ -19,8 +19,14 @@ class DoctrineModule
      */
     private $env;
 
-    public function __construct(Environment $env, array $connection)
+    /**
+     * @var \wpdb
+     */
+    private $wpdb;
+
+    public function __construct(Environment $env, \wpdb $wpdb, array $connection)
     {
+        $this->wpdb       = $wpdb;
         $this->env        = $env;
         $this->connection = $connection;
     }
@@ -50,7 +56,7 @@ class DoctrineModule
         ];
 
         $evm         = new \Doctrine\Common\EventManager;
-        $tablePrefix = new TablePrefix('wp_'); // TODO: fixme for multisite
+        $tablePrefix = new TablePrefix($this->wpdb->get_blog_prefix()); // TODO: fixme for multisite
         $evm->addEventListener(Events::loadClassMetadata, $tablePrefix);
 
         return EntityManager::create(array_merge($conn, $this->connection), $config, $evm);
