@@ -1,0 +1,19 @@
+{
+    "name": "greg0/plugin-dev-kit",
+    "authors": [
+        {
+            "name": "Grzegorz Kuźnik",
+            "email": "grzegorz-k@outlook.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3.*",
+        "php-di/php-di": "^6.1",
+        "doctrine/annotations": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Plugin\\DevKit\\": "src/"
+        }
+    }
+}
