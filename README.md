@@ -64,6 +64,12 @@ add_action('plugins_loaded', function () {
 })
 ```
 
+Then to access container:
+```php
+$containerDevkit = new \Plugin\DevKit\Container\ContainerModule();
+$container = $containerDevkit->getContainer();
+```
+
 ### ORM entities
 
 Like before in `plugins_loaded` action handle annotation, with XML mappings:
