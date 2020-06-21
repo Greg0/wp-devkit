@@ -1,0 +1,29 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Plugin\TestPlugin\Entity\Option" table="options">
+        <id name="id" type="bigint" column="option_id">
+            <generator strategy="AUTO" />
+            <options>
+                <option name="unsigned">true</option>
+            </options>
+        </id>
+        <indexes>
+            <index name="autoload" columns="autoload" />
+        </indexes>
+
+        <field name="name" column="option_name" type="string" length="191">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+        <field name="value" column="option_value" type="text" length="65535"/>
+        <field name="autoload" type="string" length="20">
+            <options>
+                <option name="default">yes</option>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>
