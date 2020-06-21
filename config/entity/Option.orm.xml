@@ -3,7 +3,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Plugin\TestPlugin\Entity\Option" table="options">
+    <entity name="Plugin\DevKit\ORM\Entity\Option" table="options">
         <id name="id" type="bigint" column="option_id">
             <generator strategy="AUTO" />
             <options>

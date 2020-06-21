@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Plugin\TestPlugin\Entity;
+namespace Plugin\DevKit\ORM\Entity;
 
 
 class Option
