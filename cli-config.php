@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(__FILE__, 4) . '/wp-load.php';
-require_once __DIR__.'/plugin-dev-kit.php';
+require_once __DIR__.'/wp-devkit.php';
 
 $cm = new \Plugin\DevKit\Container\ContainerModule();
 $c = $cm->getContainer();

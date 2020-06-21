@@ -8,6 +8,7 @@ use Doctrine\ORM\Events;
 use Plugin\DevKit\Common\Environment;
 use Plugin\DevKit\ORM\Action\AddOrmMapping;
 use Plugin\DevKit\ORM\Entity\Term;
+use Redis;
 
 class DoctrineModule
 {
@@ -37,6 +38,14 @@ class DoctrineModule
             $cache = new \Doctrine\Common\Cache\ApcuCache();
         } else {
             $cache = new \Doctrine\Common\Cache\ArrayCache;
+
+            $redis = new Redis();
+            $redis->connect('redis', 6379);
+
+            $cacheDriver = new \Doctrine\Common\Cache\RedisCache();
+            $cacheDriver->setRedis($redis);
+            $cacheDriver->save('cache_id', 'my_data');
+            $cache = $cacheDriver;
         }
         $config = new \Doctrine\ORM\Configuration();
         $mappingContainer = new MappingContainer();
