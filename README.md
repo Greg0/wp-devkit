@@ -5,7 +5,7 @@ Plugin adds modern programming techniques.
 
 Plugin add support for:
 - [Dependency Injection Container](https://php-di.org/)
-- [ORM](https://www.doctrine-project.org) with multisite support
+- [ORM](https://www.doctrine-project.org) (TODO: Multisite support)
 - Actions and filters moved to separated classes and methods by [Annotations](https://github.com/doctrine/annotations/)
     ```php
     /**
