@@ -34,18 +34,16 @@ class DoctrineModule
 
     public function getEM(): EntityManager
     {
+        // TODO: Configure cache from GUI
+
         if ($this->env->isProd() && extension_loaded('apcu') && ini_get('apcu.enabled')) {
             $cache = new \Doctrine\Common\Cache\ApcuCache();
         } else {
-            $cache = new \Doctrine\Common\Cache\ArrayCache;
-
+//            $cache = new \Doctrine\Common\Cache\ArrayCache();
             $redis = new Redis();
             $redis->connect('redis', 6379);
-
-            $cacheDriver = new \Doctrine\Common\Cache\RedisCache();
-            $cacheDriver->setRedis($redis);
-            $cacheDriver->save('cache_id', 'my_data');
-            $cache = $cacheDriver;
+            $cache = new \Doctrine\Common\Cache\RedisCache();
+            $cache->setRedis($redis);
         }
         $config = new \Doctrine\ORM\Configuration();
         $mappingContainer = new MappingContainer();
@@ -55,6 +53,8 @@ class DoctrineModule
         $driver = new \Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver(
             $mappingContainer->getAll()
         );
+
+        $cache->setNamespace($this->wpdb->get_blog_prefix());
         $config->setMetadataCacheImpl($cache);
         $config->setMetadataDriverImpl($driver);
         $config->setProxyDir($this->getTempDir() . '/doctrine');
@@ -65,7 +65,7 @@ class DoctrineModule
         ];
 
         $evm         = new \Doctrine\Common\EventManager;
-        $tablePrefix = new TablePrefix($this->wpdb->get_blog_prefix()); // TODO: fixme for multisite
+        $tablePrefix = new TablePrefix($this->wpdb->get_blog_prefix());
         $evm->addEventListener(Events::loadClassMetadata, $tablePrefix);
 
         return EntityManager::create(array_merge($conn, $this->connection), $config, $evm);
